@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        Nate<span>Travel</span>
+    </div>
+
+    <h2>Registrasi</h2>
+
+    <input type="text" id="username" placeholder="Username">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="register()">Daftar</button>
+
+    <p id="pesan"></p>
+
+    <div class="link">
+        Sudah punya akun? klik sini
+        <a href="login.html">Login</a>
+    </div>
+
+</div>
+
+</body>
+<script>
+function register() {
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if(username === "" || password === ""){
+        document.getElementById("pesan").innerHTML =
+        "Username dan Password wajib diisi!";
+        return;
+    }
+
+    let users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+    let existingUser = users.find(
+        user => user.username === username
+    );
+
+    if(existingUser){
+        document.getElementById("pesan").innerHTML =
+        "Username sudah digunakan!";
+        return;
+    }
+
+    users.push({
+        username: username,
+        password: password
+    });
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+    document.getElementById("pesan").innerHTML =
+    "Registrasi berhasil!";
+
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 1000);
+}
+</script>
+
+</body>
+</html>

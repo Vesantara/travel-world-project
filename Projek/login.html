@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        Nate<span>Travel</span>
+    </div>
+
+    <h2>Login</h2>
+
+    <input type="text" id="username" placeholder="Username">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="pesan"></p>
+
+    <div class="link">
+        Belum punya akun?
+        <a href="register.html">Daftar</a>
+    </div>
+
+</div>
+<script>
+function login(){
+
+    let username =
+    document.getElementById("username").value;
+
+    let password =
+    document.getElementById("password").value;
+
+    let users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+    let found = users.find(user =>
+        user.username === username &&
+        user.password === password
+    );
+
+    if(found){
+
+        localStorage.setItem(
+            "isLoggedIn",
+            "true"
+        );
+
+        window.location.href = "index.html";
+
+    }else{
+
+        document.getElementById("pesan").innerHTML =
+        "Username atau Password salah!";
+    }
+}
+</script>
+
+</body>
+</html>
